@@ -80,15 +80,16 @@
 ;the products of the individual components of the two vectors.
 
 (deftest vector3-dot-product
-  (testing "When two vectors are on the same plane they form an angle."
+  (testing "When two vectors are parallel to the plane,
+  they don't form an angle."
     (is (= 0 (v3/dot-product {:x 1 :y 0 :z 0}
                              {:x 0 :y 1 :z 0}))))
-  (testing "Since the is a positive number, you can infer that the
-  vectors would form an acute angle."
+  (testing "Since the dot product is a positive number,
+  you can infer that the vectors would form an acute angle."
     (is (pos? (v3/dot-product {:x 1 :y 2 :z 3}
                               {:x 4 :y -5 :z 6}))))
-  (testing "Since the is a negative number, you can infer that the
-  vectors would form an obtuse angle."
+  (testing "Since the dot product is a negative number,
+  you can infer that the vectors would form an obtuse angle."
     (is (neg? (v3/dot-product {:x 2 :y -3 :z 7}
                               {:x -4 :y -3 :z -4})))))
 
