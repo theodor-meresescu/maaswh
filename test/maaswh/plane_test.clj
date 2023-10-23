@@ -10,15 +10,15 @@
 ;substituting any point into the equation.
 
 (deftest plane-in-3d
-  (testing "When given three points, return a plane with a normal
-  and a constant."
-    (is (= {:normal {:x 15 :y 3 :z 4} :constant 47}
-           (p/plane {:x 1 :y 4 :z 5}
-                    {:x 2 :y -1 :z 5}
-                    {:x 3 :y -2 :z 2}))))
   (testing "When the three points are in the same position,
   there is no plane."
     (is (= {:normal {:x 0 :y 0 :z 0} :constant 0}
            (p/plane {:x 1 :y 4 :z 5}
                     {:x 1 :y 4 :z 5}
-                    {:x 1 :y 4 :z 5})))))
+                    {:x 1 :y 4 :z 5}))))
+  (testing "When given three points, return a plane with a normal
+  and a constant."
+    (is (= {:normal {:x 15 :y 3 :z 4} :constant 47}
+           (p/plane {:x 1 :y 4 :z 5}
+                    {:x 2 :y -1 :z 5}
+                    {:x 3 :y -2 :z 2})))))
