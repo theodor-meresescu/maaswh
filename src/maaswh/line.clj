@@ -3,9 +3,9 @@
 
 (defn line
   [point-a point-b]
-  (let [direction (v3/direction point-b point-a)]
+  (let [[ab] (v3/displace point-a point-b)]
     (hash-map :base-position point-a
-              :direction direction)))
+              :direction ab)))
 
 ;Plane equation: Ax + By + Cz = D
 
