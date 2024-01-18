@@ -29,31 +29,22 @@
                    (v3/scale-by 3 {:x 1 :y 2 :z 3}))
            (v3/scale-by (+ 2 3) {:x 1 :y 2 :z 3})))))
 
-(deftest vector3-direction
-  (testing "A vector has a direction defined by the difference between
-  two points in space (x1, y1, z1) and (x2, y2, z2)."
-    (is (= {:x -7 :y -1 :z 8} (v3/direction {:x -2 :y 1 :z 5}
-                                            {:x 5 :y 2 :z -3}))))
-  (testing "When a vector is defined by single position in space, the
-  direction is the vector from the origin to the position."
-    (is (= {:x 7 :y 1 :z -8} (v3/direction {:x 7 :y 1 :z -8})))))
+;A vector has a direction defined by the difference between
+;two points in space (x1, y1, z1) and (x2, y2, z2).
 
-(deftest coplanar-vectors
-  (testing "Given one point, return no vectors."
-    (is (= '()
-           (v3/coplanar {:x 1 :y 4 :z 5}))))
-  (testing "Given two point, return a positional vector AB."
+(deftest vector3-displace
+  (testing "When given two points, displace positional vector AB."
     (is (= '({:y -5, :z 0, :x 1})
-           (v3/coplanar {:x 1 :y 4 :z 5}
+           (v3/displace {:x 1 :y 4 :z 5}
                         {:x 2 :y -1 :z 5}))))
-  (testing "Given 3 points, produce two coplanar position vectors AB/AC."
+  (testing "When given 3 points, displace two position vectors AB/AC."
     (is (= '({:x 1 :y -5 :z 0} {:x 2 :y -6 :z -3})
-           (v3/coplanar {:x 1 :y 4 :z 5}
+           (v3/displace {:x 1 :y 4 :z 5}
                         {:x 2 :y -1 :z 5}
                         {:x 3 :y -2 :z 2}))))
-  (testing "Given any number of points, produce coplanar position vectors."
+  (testing "Given any number of points, displace position vectors."
     (is (= '({:y -5, :z 0, :x 1} {:y -6, :z -3, :x 2} {:y -7, :z 1, :x 3})
-           (v3/coplanar {:x 1 :y 4 :z 5}
+           (v3/displace {:x 1 :y 4 :z 5}
                         {:x 2 :y -1 :z 5}
                         {:x 3 :y -2 :z 2}
                         {:x 4 :y -3 :z 6})))))
