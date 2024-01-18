@@ -16,6 +16,12 @@
            (p/plane {:x 1 :y 4 :z 5}
                     {:x 1 :y 4 :z 5}
                     {:x 1 :y 4 :z 5}))))
+  (testing "When the three points are collinear,
+  there is no plane."
+    (is (= {:normal {:x 0 :y 0 :z 0} :constant 0}
+           (p/plane {:x 1 :y 2 :z 3}
+                    {:x 3 :y 4 :z 5}
+                    {:x 5 :y 6 :z 7}))))
   (testing "When given three points, return a plane with a normal
   and a constant."
     (is (= {:normal {:x 15 :y 3 :z 4} :constant 47}
