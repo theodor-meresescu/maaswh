@@ -3,7 +3,7 @@
 
 (defn line
   [point-a point-b]
-  (let [[ab] (v3/displace point-a point-b)]
+  (let [ab (v3/displace point-a point-b)]
     (hash-map :base-position point-a
               :direction ab)))
 
@@ -35,9 +35,9 @@
 (defn intersect-with-plane
   [{:keys [direction base-position] :as line}
    {:keys [normal constant] :as plane}]
-  (let [nXd (v3/dot-product normal direction)
-        nXb (v3/dot-product normal base-position)]
-    (if (zero? nXd)
-      (if (= nXb constant) base-position nil)
-      (let [t (/ (- constant nXb) nXd)]
+  (let [projection (v3/dot-product normal direction)
+        ref-pos (v3/dot-product normal base-position)]
+    (if (zero? projection)
+      (if (= ref-pos constant) base-position nil)
+      (let [t (/ (- constant ref-pos) projection)]
         (v3/add base-position (v3/scale-by t direction))))))

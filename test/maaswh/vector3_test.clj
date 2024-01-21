@@ -34,20 +34,29 @@
 
 (deftest vector3-displace
   (testing "When given two points, displace positional vector AB."
+    (is (= {:x 7 :y 1 :z -8} (v3/displace {:x -2 :y 1 :z 5}
+                                          {:x 5 :y 2 :z -3}))))
+  (testing "When given a single point in space, the displaced vector
+  is from origin to the point."
+    (is (= {:x 7 :y 1 :z -8} (v3/displace {:x 7 :y 1 :z -8})))))
+
+
+(deftest vector3-displace-coplanar
+  (testing "When given two points, displace positional vector AB."
     (is (= '({:y -5, :z 0, :x 1})
-           (v3/displace {:x 1 :y 4 :z 5}
-                        {:x 2 :y -1 :z 5}))))
+           (v3/displace-coplanar {:x 1 :y 4 :z 5}
+                                 {:x 2 :y -1 :z 5}))))
   (testing "When given 3 points, displace two position vectors AB/AC."
     (is (= '({:x 1 :y -5 :z 0} {:x 2 :y -6 :z -3})
-           (v3/displace {:x 1 :y 4 :z 5}
-                        {:x 2 :y -1 :z 5}
-                        {:x 3 :y -2 :z 2}))))
+           (v3/displace-coplanar {:x 1 :y 4 :z 5}
+                                 {:x 2 :y -1 :z 5}
+                                 {:x 3 :y -2 :z 2}))))
   (testing "Given any number of points, displace position vectors."
     (is (= '({:y -5, :z 0, :x 1} {:y -6, :z -3, :x 2} {:y -7, :z 1, :x 3})
-           (v3/displace {:x 1 :y 4 :z 5}
-                        {:x 2 :y -1 :z 5}
-                        {:x 3 :y -2 :z 2}
-                        {:x 4 :y -3 :z 6})))))
+           (v3/displace-coplanar {:x 1 :y 4 :z 5}
+                                 {:x 2 :y -1 :z 5}
+                                 {:x 3 :y -2 :z 2}
+                                 {:x 4 :y -3 :z 6})))))
 
 ;The cross product of two vectors yields a vector that
 ;is perpendicular to the plane containing the two given vectors.

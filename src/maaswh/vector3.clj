@@ -30,12 +30,12 @@
   [scalar item]
   (multiply item {:x scalar :y scalar :z scalar}))
 
-(defn- displace-points
-  [initial terminal]
-  (add initial (scale-by -1 (or terminal {:x 0 :y 0 :z 0}))))
-
 (defn displace
-  [initial & points] (map #(displace-points % initial) points))
+  ([initial terminal] (add terminal (scale-by -1 initial)))
+  ([p] (displace {:x 0 :y 0 :z 0} p)))
+
+(defn displace-coplanar
+  [initial & points] (map #(displace initial %) points))
 
 (defn dot-product
   [& items]

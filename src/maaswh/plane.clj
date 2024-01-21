@@ -4,8 +4,8 @@
 
 (defn plane
   [a b c]
-  (let [[ab ac] (v3/displace a b c)
-        normal (v3/cross-product ab ac)
-        nXa (v3/dot-product normal a)]
-    (hash-map :normal normal
-              :constant nXa)))
+  (let [[ab ac] (v3/displace-coplanar a b c)
+        n (v3/cross-product ab ac)
+        d (v3/dot-product n a)]
+    (hash-map :normal n
+              :constant d)))
