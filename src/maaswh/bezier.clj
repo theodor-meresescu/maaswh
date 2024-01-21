@@ -44,8 +44,8 @@
   (map #(bernstein-polynomial % n t) (range (inc n))))
 
 (defn bernstein
-  [points t]
-  (let [degree (dec (count points))]
+  [curve t]
+  (let [degree (dec (count curve))]
     (apply v3/add
            (map #(v3/scale-by %1 %2)
-                (evaluate-bernstein-basis degree t) points))))
+                (evaluate-bernstein-basis degree t) curve))))
