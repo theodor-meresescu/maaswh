@@ -27,9 +27,7 @@
 
 (defn factorial
   [n]
-  (if (<= n 1)
-    1
-    (* n (factorial (dec n)))))
+  (reduce * (range 1 (inc n))))
 
 (defn binomial-coefficient
   [n k]
