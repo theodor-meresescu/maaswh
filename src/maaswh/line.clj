@@ -1,6 +1,14 @@
 (ns maaswh.line
   (:require [maaswh.vector3 :as v3]))
 
+(defn lerp
+  [item1 item2 t]
+  (if (<= 0 t 1)
+    (v3/add (v3/scale-by (- 1 t) item1)
+            (v3/scale-by t item2))
+    (throw
+      (ex-info "Argument out of range: [0, 1]" {:cause t}))))
+
 (defn line
   [point-a point-b]
   (let [ab (v3/displace point-a point-b)]

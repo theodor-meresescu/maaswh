@@ -46,11 +46,3 @@
   (hash-map :x (- (* (:y item1) (:z item2)) (* (:z item1) (:y item2)))
             :y (- (* (:z item1) (:x item2)) (* (:x item1) (:z item2)))
             :z (- (* (:x item1) (:y item2)) (* (:y item1) (:x item2)))))
-
-(defn lerp
-  [item1 item2 t]
-  (if (<= 0 t 1)
-    (add-op (scale-by (- 1 t) item1)
-            (scale-by t item2))
-    (throw
-      (ex-info "Argument out of range: [0, 1]" {:cause t}))))

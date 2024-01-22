@@ -51,3 +51,30 @@
                                     :direction     {:y -6, :z -3, :x 2}}
                                    {:normal   {:y 3, :z 4, :x 15}
                                     :constant 47})))))
+
+;Linear interpolation is a method used to find values that lie between
+;two known values [0, 1]. In the context of 3D points, linear interpolation
+;can be applied to interpolate between two sets of 3D coordinates.
+;Algebraically lerp is: a + (b - a) * t (reduced to: a * (1-t) + b*t).
+;t is the scalar parameter between 0 and 1
+
+(deftest vector3-lerp
+  (testing "When t = 0, returns item1."
+    (is (= (l/lerp {:x 1 :y 1 :z 1}
+                    {:x 2 :y 2 :z 2}
+                    0)
+           {:x 1 :y 1 :z 1})))
+  (testing "When t = 1, returns item2."
+    (is (= (l/lerp {:x 1 :y 1 :z 1}
+                    {:x 2 :y 2 :z 2}
+                    1)
+           {:x 2 :y 2 :z 2})))
+  (testing "When t = 0.5, returns the point midway between item1 and item2."
+    (is (= (l/lerp {:x 1 :y 1 :z 1}
+                    {:x 2 :y 2 :z 2}
+                    0.5)
+           {:x 1.5 :y 1.5 :z 1.5})))
+  (testing "When t is out of range, throws exception."
+    (is (thrown? Exception (l/lerp {:x 1 :y 1 :z 1}
+                                    {:x 2 :y 2 :z 2}
+                                    2)))))
