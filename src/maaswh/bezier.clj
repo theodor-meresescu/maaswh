@@ -10,12 +10,14 @@
   [n k]
   (/ (factorial n) (* (factorial k) (factorial (- n k)))))
 
-(defn bernstein-polynomial [i n t]
+(defn bernstein-polynomial
+  [i n t]
   (* (binomial-coefficient n i)
      (Math/pow (- 1 t) (- n i))
      (Math/pow t i)))
 
-(defn evaluate-bernstein-basis [n t]
+(defn evaluate-bernstein-basis
+  [n t]
   (map #(bernstein-polynomial % n t) (range (inc n))))
 
 (defn bernstein
